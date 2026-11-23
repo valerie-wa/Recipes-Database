@@ -52,6 +52,8 @@ async function loadRecipes() {
 recipeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const rawImageUrl = document.getElementById('image_url').value.trim();
+
   const payload = {
     title: document.getElementById('title').value.trim(),
     category: document.getElementById('category').value,
@@ -60,7 +62,8 @@ recipeForm.addEventListener('submit', async (e) => {
       .split('\n')
       .map(line => line.trim())
       .filter(Boolean),
-    instructions: document.getElementById('instructions').value.trim()
+    instructions: document.getElementById('instructions').value.trim(),
+    image_url: rawImageUrl || null
   };
 
   const res = await fetch('/api/recipes', {
